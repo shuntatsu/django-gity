@@ -23,7 +23,7 @@ from django.views.generic import ListView, DetailView
 from authlib.integrations.django_client import OAuth
 
 from .forms import BookForm, SearchBookForm, SearchUserForm, WantBookForm
-from .models import Book, IssuedData, QRCode
+from .models import Book, IssuedData, QRCode, Want_Book
 from .makeUserQr import make_qr
 from .decorator import is_superuser, rate_limit
 from .qr import generate_qr_code_pdf
@@ -110,7 +110,7 @@ def login_rp(request):
             del request.session['url_next_to_login']
 
         # デバッグ用の出力
-        print(redirect_url)
+        # print(redirect_url)
 
         # ユーザーをリダイレクト
         return redirect(redirect_url)
@@ -188,7 +188,7 @@ def home(request):
         elif 'update_qr_button' in request.POST:
             # QRコードを更新する
             make_qr(request.user)
-            return HttpResponseRedirect('/library')
+            return HttpResponseRedirect('/')
 
     # レンタル中のIssuedDataを取得
     issued_data = IssuedData.objects.filter(user=request.user)
@@ -371,10 +371,10 @@ def want_book(request):
         form = WantBookForm()
     
     # データベースからすべての本を取得
-    books = Book.objects.all()
+    want_books = Want_Book.objects.all()
 
     # テンプレートにフォームと本のリストを渡す
-    return render(request, 'library/want_book.html', {'form': form, 'books': books})
+    return render(request, 'library/want_book.html', {'form': form, 'books': want_books})
 
 
 # 他サイトQRコード登録用

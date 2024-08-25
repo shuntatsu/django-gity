@@ -9,9 +9,9 @@ from django.conf.urls.static import static
 urlpatterns = \
 [
     path('login', login_op, name="login"),
-    path('library/login_rp', login_rp, name="login_rp"),# 'login_rp'
+    path('login_rp', login_rp, name="login_rp"),# 'login_rp'
     path('logout', logout, name='logout'),
-    path('library', home, name='library'),                 # ''
+    path('', home, name='library'),                 # ''
     path('registration', registration, name='registration'),
     path('qr_registration', qr_registration, name='qr_registration'), 
     path('qr_reading', qr_reading, name='qr_reading'),   
